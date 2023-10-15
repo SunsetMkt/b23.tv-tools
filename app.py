@@ -13,12 +13,16 @@ def index():
 @app.route("/get")
 def get():
     url = flask.request.args.get("url")
+    if not url.startswith("http"):
+        url = "http://" + url
     return b23tv.get_b23of(url)
 
 
 @app.route("/parse")
 def parse():
     url = flask.request.args.get("url")
+    if not url.startswith("http"):
+        url = "http://" + url
     return b23tv.access_b23_url_and_return_real_url(url)
 
 
