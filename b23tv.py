@@ -41,7 +41,7 @@ def get_b23of(long_url):
 
 
 def access_b23_url_and_return_real_url(url):
-    res = requests.get(url, allow_redirects=True)
+    res = requests.head(url, allow_redirects=True)
     real_url = res.url
     r = urlparse(real_url)
     return r.scheme + "://" + r.netloc + r.path
