@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生成/解析b23.tv</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/simpledotcss/simple.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>生成/解析b23.tv</h1>
+    </header>
+
+    <main>
+      <p>
+        <input
+          type="text"
+          id="url"
+          placeholder="输入待处理链接"
+          style="width: 100%"
+        />
+      </p>
+      <p>
+        <button id="get">从长连接获取b23.tv短链接</button>
+        <button id="parse">从b23.tv短链接获取清洗过的长链接</button>
+      </p>
+      <p>
+        <input
+          type="text"
+          id="result"
+          style="width: 100%"
+          placeholder="处理后的链接"
+        />
+      </p>
+      <p>
+        <button id="copy">复制处理后的链接</button>
+      </p>
+    </main>
+
+    <script>
+      const getButton = document.getElementById("get");
+      const parseButton = document.getElementById("parse");
+      const urlInput = document.getElementById("url");
+      const resultInput = document.getElementById("result");
+      const copyButton = document.getElementById("copy");
+
+      getButton.addEventListener("click", () => {
+        resultInput.value = "";
+        const xhr = new XMLHttpRequest();
+        const encodedUrl = encodeURIComponent(urlInput.value);
+        const requestUrl = "/get?url=" + encodedUrl;
+
+        xhr.open("GET", requestUrl);
+
+        xhr.onload = () => {
+          resultInput.value = xhr.responseText;
+        };
+
+        xhr.send();
+      });
+
+      parseButton.addEventListener("click", () => {
+        resultInput.value = "";
+        const xhr = new XMLHttpRequest();
+        const encodedUrl = encodeURIComponent(urlInput.value);
+        const requestUrl = "/parse?url=" + encodedUrl;
+
+        xhr.open("GET", requestUrl);
+
+        xhr.onload = () => {
+          resultInput.value = xhr.responseText;
+        };
+
+        xhr.send();
+      });
+
+      copyButton.addEventListener("click", () => {
+        navigator.clipboard.writeText(resultInput.value);
+      });
+    </script>
+  </body>
+</html>
