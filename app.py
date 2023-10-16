@@ -14,7 +14,7 @@ def index():
 def get():
     url = flask.request.args.get("url")
     if not url.startswith("http"):
-        url = "http://" + url
+        url = "http://" + url.strip()
     return b23tv.get_b23of(url)
 
 
@@ -22,7 +22,7 @@ def get():
 def parse():
     url = flask.request.args.get("url")
     if not url.startswith("http"):
-        url = "http://" + url
+        url = "http://" + url.strip()
     return b23tv.access_b23_url_and_return_real_url(url)
 
 
