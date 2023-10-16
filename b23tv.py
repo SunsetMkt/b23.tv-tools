@@ -31,12 +31,16 @@ def get_b23of(long_url):
         "share_id": "public.webview.0.0.pv",
         "share_mode": str(random.randint(1, 10)),
     }
-    res = requests.post(api, data=data)
-    res.raise_for_status()
-    data = json.loads(res.content)
-    if data["data"].__contains__("content"):
-        return data["data"]["content"]
-    else:
+
+    try:
+        res = requests.post(api, data=data)
+        res.raise_for_status()
+        data = json.loads(res.content)
+        if data["data"].__contains__("content"):
+            return data["data"]["content"]
+        else:
+            return "Not available"
+    except:
         return "Not available"
 
 
