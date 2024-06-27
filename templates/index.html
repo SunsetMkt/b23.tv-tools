@@ -8,6 +8,11 @@
       rel="stylesheet"
       href="https://unpkg.com/simpledotcss/simple.min.css"
     />
+    <style>
+      input {
+        width: 100%;
+      }
+    </style>
   </head>
   <body>
     <header>
@@ -15,29 +20,26 @@
     </header>
 
     <main>
-      <p>
-        <input
-          type="text"
-          id="url"
-          placeholder="输入待处理链接"
-          style="width: 100%"
-        />
-      </p>
-      <p>
-        <button id="get">从Bilibili长链接获取b23.tv短链接</button>
-        <button id="parse">从b23.tv短链接获取清洗过的长链接</button>
-      </p>
-      <p>
-        <input
-          type="text"
-          id="result"
-          style="width: 100%"
-          placeholder="处理后的链接"
-        />
-      </p>
-      <p>
-        <button id="copy">复制处理后的链接</button>
-      </p>
+      <form>
+        <p>
+          <input type="url" id="url" placeholder="输入待处理链接" />
+        </p>
+        <p>
+          <button id="get" type="button">
+            从Bilibili长链接获取b23.tv短链接
+          </button>
+          <button id="parse" type="button">
+            从b23.tv短链接获取清洗过的长链接
+          </button>
+        </p>
+        <p>
+          <input type="text" id="result" placeholder="处理后的链接" />
+        </p>
+        <p>
+          <button id="copy" type="button">复制处理后的链接</button>
+        </p>
+      </form>
+      <p id="log" class="notice">这里显示服务器端返回的原始内容</p>
     </main>
 
     <script>
@@ -46,6 +48,7 @@
       const urlInput = document.getElementById("url");
       const resultInput = document.getElementById("result");
       const copyButton = document.getElementById("copy");
+      const logP = document.getElementById("log");
 
       getButton.addEventListener("click", () => {
         resultInput.value = "";
@@ -56,7 +59,8 @@
         xhr.open("GET", requestUrl);
 
         xhr.onload = () => {
-          resultInput.value = xhr.responseText;
+          logP.innerText = xhr.responseText;
+          resultInput.value = JSON.parse(xhr.responseText).short;
         };
 
         xhr.send();
@@ -71,7 +75,8 @@
         xhr.open("GET", requestUrl);
 
         xhr.onload = () => {
-          resultInput.value = xhr.responseText;
+          logP.innerText = xhr.responseText;
+          resultInput.value = JSON.parse(xhr.responseText).cleaned;
         };
 
         xhr.send();

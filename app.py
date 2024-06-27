@@ -12,18 +12,29 @@ def index():
 
 @app.route("/get")
 def get():
-    url = flask.request.args.get("url").strip()
-    if not url.startswith("http"):
-        url = "http://" + url
-    return b23tv.get_b23of(url)
+    try:
+        url = flask.request.args.get("url").strip()
+        if not url.startswith("http"):
+            url = "http://" + url
+        return {"short": b23tv.get_b23of(url), "original": url}
+    except:
+        import traceback
+
+        return {"error": traceback.format_exc()}
 
 
 @app.route("/parse")
 def parse():
-    url = flask.request.args.get("url").strip()
-    if not url.startswith("http"):
-        url = "http://" + url
-    return b23tv.access_b23_url_and_return_real_url(url)
+    try:
+        url = flask.request.args.get("url").strip()
+        if not url.startswith("http"):
+            url = "http://" + url
+        cleaned, original = b23tv.access_b23_url_and_return_real_url(url)
+        return {"cleaned": cleaned, "original": original}
+    except:
+        import traceback
+
+        return {"error": traceback.format_exc()}
 
 
 if __name__ == "__main__":
