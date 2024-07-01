@@ -22,7 +22,11 @@
     <main>
       <form>
         <p>
-          <input type="url" id="url" placeholder="输入待处理链接" />
+          <input
+            type="url"
+            id="url"
+            placeholder="输入待处理链接（请只输入标准格式的URL）"
+          />
         </p>
         <p>
           <button id="get" type="button">
@@ -33,13 +37,17 @@
           </button>
         </p>
         <p>
-          <input type="text" id="result" placeholder="处理后的链接" />
+          <input
+            type="text"
+            id="result"
+            placeholder="处理后的链接（不存在的短链接会返回其本身）"
+          />
         </p>
         <p>
           <button id="copy" type="button">复制处理后的链接</button>
         </p>
       </form>
-      <p id="log" class="notice">这里显示服务器端返回的原始内容</p>
+      <p id="log" class="notice">这里显示服务器端返回的原始内容。</p>
     </main>
 
     <script>
