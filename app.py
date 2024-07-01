@@ -40,7 +40,7 @@ def parse():
 
         return {
             "msg": "输入的不是标准URL或服务器故障。",
-            "original": original,
+            "original": url,
             "traceback": traceback.format_exc(),
         }
 
