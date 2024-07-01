@@ -20,7 +20,11 @@ def get():
     except:
         import traceback
 
-        return {"traceback": traceback.format_exc()}
+        return {
+            "msg": "服务器故障。",
+            "original": url,
+            "traceback": traceback.format_exc(),
+        }
 
 
 @app.route("/parse")
