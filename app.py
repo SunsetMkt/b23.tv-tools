@@ -20,7 +20,7 @@ def get():
     except:
         import traceback
 
-        return {"error": traceback.format_exc()}
+        return {"traceback": traceback.format_exc()}
 
 
 @app.route("/parse")
@@ -34,7 +34,11 @@ def parse():
     except:
         import traceback
 
-        return {"error": traceback.format_exc()}
+        return {
+            "msg": "输入的不是标准URL或服务器故障。",
+            "original": original,
+            "traceback": traceback.format_exc(),
+        }
 
 
 if __name__ == "__main__":
