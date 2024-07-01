@@ -20,19 +20,20 @@
     </header>
 
     <main>
-      <form>
+      <form onsubmit="return false">
         <p>
           <input
             type="url"
             id="url"
-            placeholder="输入待处理链接（请只输入标准格式的URL）"
+            placeholder="输入待处理链接（https://）"
+            required
           />
         </p>
         <p>
-          <button id="get" type="button">
+          <button id="get" type="submit">
             从Bilibili长链接获取b23.tv短链接
           </button>
-          <button id="parse" type="button">
+          <button id="parse" type="submit">
             从b23.tv短链接获取清洗过的长链接
           </button>
         </p>
@@ -59,6 +60,9 @@
       const logP = document.getElementById("log");
 
       getButton.addEventListener("click", () => {
+        if (urlInput.value == "") {
+          return;
+        }
         resultInput.value = "";
         const xhr = new XMLHttpRequest();
         const encodedUrl = encodeURIComponent(urlInput.value);
@@ -75,6 +79,9 @@
       });
 
       parseButton.addEventListener("click", () => {
+        if (urlInput.value == "") {
+          return;
+        }
         resultInput.value = "";
         const xhr = new XMLHttpRequest();
         const encodedUrl = encodeURIComponent(urlInput.value);
